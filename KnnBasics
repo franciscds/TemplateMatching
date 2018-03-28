@@ -1,0 +1,47 @@
+
+rm(list=ls())
+
+myknn <-function(X,Y,k,xt){
+  
+  N<-nrow(X)
+  n<-ncol(X)
+  
+  dxt <-matrix(nrow=N,ncol=1)
+  for( i in 1:n)
+  {
+    dxt(i) <-sum((xt-X[1,])^2)
+  }
+  NN <- order(dxt)
+  cxt <- sign(sum(Y[NN[1:K]]))
+  return(cxt)
+}
+
+N12 <-50
+
+xc1 <- matrix(rnorm(N12*2,mean=2,sd=0.8),ncol=2)
+xc2 <- matrix(rnorm(N12*2,mean=4,sd=0.8),ncol=2)
+X <-rbind(xc1,xc2)
+Y <- rbind(-1*matrix(1,nrow=N12,ncol=1,matrix(1,nrow=N12,ncol=1)))
+
+plot(xc1[,1],xc1[,2],col='red',xlim=c(0,6))
+par(new=T)
+plot(xc2[,1],xc2[,2],col='blue',xlim=c(0,6))
+
+xt <- as.matrix(c(3,2))
+
+xyseq<-seq(0,6,0.1)
+
+M<-matrix(nrow=length(xyseq),ncol=length(xyseq))
+
+for( i in xyseq)
+{
+  ci<-cj<-1
+  for( i in xyseq)
+  {   
+  cj<-cj+1
+  xt<-as.matrix(i,j)
+  M[ci,cj] <-myknn(X,Y,k,xt)
+  }
+}
+
+persp3D(xyseq,xyseq,M)
