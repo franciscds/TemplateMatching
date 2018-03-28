@@ -35,7 +35,7 @@ similaridade <- function(feature_train,feature_test)
   for( i in 1: 25){
     for(j in 1:25){
       sim_mat[i,j] = dist(rbind(feature_train[i,],feature_test[j,]))
-      if( sim_mat[i,j]==0)
+      if( sim_mat[i,j]<3000)
       {
         sim_mat[i,j] = 100000000;
       }
@@ -147,4 +147,6 @@ for( i in 1:25)
     }
     
 }
+ count = count-1
+ plot(count,type="l")
  
